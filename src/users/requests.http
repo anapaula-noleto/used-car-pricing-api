@@ -3,9 +3,17 @@ POST http://localhost:3000/auth/signup
 content-type: application/json
 
 {
-  "email": "teste@teste2.br",
-  "password": "123456",
-  "admin": true
+  "email": "teste@teste5.br",
+  "password": "123456"
+}
+### Sign in as an existing user
+
+POST http://localhost:3000/auth/signin
+content-type: application/json
+
+{
+  "email": "teste@teste4.br",
+  "password": "123456"
 }
 
 ### Get user by id
