@@ -9,6 +9,7 @@ import {
   Delete,
   HttpCode,
   Session,
+  UseGuards,
 } from "@nestjs/common";
 import { CreateUserDto } from "./dtos/create-user.dto";
 import { UpdateUserDto } from "./dtos/update-user.dto";
@@ -18,6 +19,7 @@ import { UserDto } from "./dtos/user.dto";
 import { AuthService } from "./auth.service";
 import { CurrentUser } from "./decorators/current-user.decorator";
 import { User } from "./user.entity";
+import { AuthGuard } from "src/guards/auth.guard";
 
 @Controller()
 @Serialize(UserDto)
@@ -42,17 +44,13 @@ export class UsersController {
     return user;
   }
 
-  // @Get("/whoami")
-  // whoAmI(@Session() session: any) {
-  //   console.log(session.userId);
-  //   return this.usersService.findOneById(session.userId);
-  // }
   @Get("/whoami")
   whoAmI(@CurrentUser() user: User) {
     return user;
   }
 
   @Post("/auth/signout")
+  @UseGuards(AuthGuard)
   @HttpCode(200)
   signOut(@Session() session: any) {
     session.userId = null;
